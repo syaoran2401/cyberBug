@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import imgDownload1 from '../../../assets/img/download (1).jfif';
 import ReactHtmlParse from 'react-html-parser'
 import { GET_ALL_STATUS_SAGA } from '../../../redux/types/StatusType';
 import { GET_ALL_PRIORITY_TYPE_SAGA } from '../../../redux/types/PriorityType';
@@ -8,11 +7,9 @@ import { CHANGE_ASSIGNESS, CHANGE_TASK_MODAL, HANDLE_CHANGE_POST_API_SAGA, REMOV
 import { GET_ALL_TASK_TYPE_SAGA } from '../../../redux/types/TaskTypeConstant';
 import { Select } from 'antd';
 import { Editor } from '@tinymce/tinymce-react';
-import { DELETE_COMMENT_SAGA, GET_ALL_COMMENT_SAGA, INSERT_COMMENT_SAGA, UPDATE_COMMENT_SAGA } from '../../../redux/types/CommentTypes';
+import { DELETE_COMMENT_SAGA,  INSERT_COMMENT_SAGA, UPDATE_COMMENT_SAGA } from '../../../redux/types/CommentTypes';
 
 
-
-const { Option } = Select;
 export default function ModalCyberBug(props) {
 
     const { taskDetailModal } = useSelector(state => state.TaskReducer);
@@ -22,14 +19,13 @@ export default function ModalCyberBug(props) {
     const { projectDetail } = useSelector(state => state.ProjectReducer);
     const { userComment } = useSelector(state => state.CommentReducer);
     const { userLogin } = useSelector(state => state.UserLoginReducer);
-    console.log(userLogin)
-    console.log("userComment", userComment)
     const [visibleEditor, setVisibleEditor] = useState(false);
     const [visibleCommentEditor, setVisibleCommentEditor] = useState(false);
     const [visibleAddComment, setVisibleAddComment] = useState(false)
     const [historyContent, setHistoryContent] = useState(taskDetailModal.description);
     const [content, setContent] = useState(taskDetailModal.description)
-    console.log('taskDetailModal', taskDetailModal)
+
+    const [selectedComment, setSelectedComment] = useState()
 
     const dispatch = useDispatch();
 
@@ -223,7 +219,7 @@ export default function ModalCyberBug(props) {
                         </div>
 
                         <div>
-                            {visibleCommentEditor ? <div>
+                            {(visibleCommentEditor && selectedComment.id === item.id) ? <div>
                                 <Editor
                                     name="description"
                                     initialValue={item.contentComment}
@@ -262,6 +258,7 @@ export default function ModalCyberBug(props) {
 
                             {userLogin.id === item.user.userId ? <div>
                                 <span className='mr-2' style={{ color: '#929398', cursor: 'pointer' }} onClick={() => {
+                                    setSelectedComment(item)
                                     setVisibleCommentEditor(true)
                                 }}>Edit</span>
                                     •
@@ -377,15 +374,7 @@ export default function ModalCyberBug(props) {
                                                     <img src={userLogin.avatar} alt='download1' />
                                                 </div>
                                                 {renderAddComment()}
-                                                {/* <div className="input-comment">
-                                                    <input type="text" placeholder="Add a comment ..." />
-                                                    <p>
-                                                        <span style={{ fontWeight: 500, color: 'gray' }}>Protip:</span>
-                                                        <span>press
-                                                         <span style={{ fontWeight: 'bold', background: '#ecedf0', color: '#b4bac6' }}>M</span>
-                                                         to comment</span>
-                                                    </p>
-                                                </div> */}
+                                             
                                             </div>
                                             <div className="lastest-comment">
                                                 {renderUserComment()}
@@ -414,8 +403,8 @@ export default function ModalCyberBug(props) {
                                             <h6>ASSIGNEES</h6>
                                             <div className='row'>
                                                 {taskDetailModal.assigness.map((mem, index) => {
-                                                    return <div className='col-6 my-1 '>
-                                                        <div key={index} style={{ display: 'flex' }} className="item">
+                                                    return <div key={index} className='col-6 my-1 '>
+                                                        <div  style={{ display: 'flex' }} className="item">
                                                             <div className="avatar">
                                                                 <img src={mem.avatar} alt='download1' />
                                                             </div>
@@ -448,7 +437,7 @@ export default function ModalCyberBug(props) {
                                                                 return false
                                                             }
                                                             return true;
-                                                        })?.map((mem, index) => {
+                                                        })?.map((mem) => {
                                                             return { value: mem.userId, label: mem.name }
                                                         })}
                                                         optionFilterProp='label'

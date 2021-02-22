@@ -1,7 +1,6 @@
 import { call, delay, put, takeLatest } from "redux-saga/effects";
 import { DELETE_PROJECT_SAGA, GET_ALL_PROJECT_SAGA } from "../../redux/types/CyberBugsType";
 import { DISPLAY_LOADING, HIDE_LOADING } from "../../redux/types/LoadingStyle";
-import { deleteProjectTest } from "../../service/CyberBugsService";
 import { projectService } from "../../service/ProjectService";
 import { STATUS_CODE } from "../../util/Constants/settingDOMAIN";
 import { notificationJira } from "../../util/Notifcation/Notification";

@@ -1,11 +1,6 @@
 import React, { useState } from 'react'
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu } from 'antd';
 import {
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
-    UploadOutlined,
     UnorderedListOutlined,
     PlusOutlined,
     SearchOutlined,
@@ -14,8 +9,7 @@ import { useDispatch } from 'react-redux';
 import { OPEN_FORM_CREATE_TASK } from '../../redux/types/CyberBugsType';
 import FormCreateTask from '../Forms/FormCreateTask';
 
-const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
+const {Sider } = Layout;
 
 export default function SidebarCyberBug() {
 

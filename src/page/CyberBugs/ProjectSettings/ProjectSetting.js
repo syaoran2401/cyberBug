@@ -9,11 +9,7 @@ import { jiraCreatProjectAction } from "../../../redux/actions/JiraAction";
 
 function ProjectSetting(props) {
     const {
-        values,
-        errors,
-        touched,
         handleChange,
-        handleBlur,
         handleSubmit,
         setFieldValue
     } = props;

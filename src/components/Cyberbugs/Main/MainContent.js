@@ -1,9 +1,8 @@
 import React from 'react'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch } from 'react-redux';
-import imgDownload1 from '../../../assets/img/download (1).jfif';
-import imgDownload2 from '../../../assets/img/download (2).jfif';
-import { GET_ALL_COMMENT, GET_ALL_COMMENT_SAGA } from '../../../redux/types/CommentTypes';
+
+import { GET_ALL_COMMENT_SAGA } from '../../../redux/types/CommentTypes';
 import { GET_TASK_DETAIL_SAGA, UPDATE_STATUS_TASK_SAGA } from '../../../redux/types/TaskType';
 
 
@@ -15,8 +14,6 @@ export default function MainContent(props) {
     const handleDragEnd = res => {
         let { destination, source } = res;
         let { projectId, taskId } = JSON.parse(res.draggableId);
-        console.log(projectId, taskId)
-        console.log(res)
         if (!destination) {
             return
         }

@@ -1,5 +1,5 @@
-import { call, all } from 'redux-saga/effects';
-import { theoDoiAddUserProject, theoDoiGetAllUserByProjectId, theoDoiGetUserSaga, theoDoiRemoveUserProject } from './CyberBugs/UserSaga';
+import { all } from 'redux-saga/effects';
+import { theoDoiAddUserProject, theoDoiDeleteUserSaga, theoDoiEditUserSaga, theoDoiGetAllUserByProjectId, theoDoiGetAllUserSaga, theoDoiGetUserSaga, theoDoiRemoveUserProject } from './CyberBugs/UserSaga';
 import { theoDoiProjectCategory } from './CyberBugs/ProjectCategorySaga'
 import { theoDoiCreateProject, theoDoiGetAllProjectSaga, theoDoiGetListProjectSaga, theoDoiGetProjectDetail } from './CyberBugs/ProjectCreateSaga';
 import { theoDoiDeleteProject } from './CyberBugs/ProjectDeleteSaga';
@@ -39,6 +39,9 @@ export function* rootSaga() {
         theoDoiGetAllCommentSaga(),
         theoDoiDeleteComment(),
         theoDoiInsertCommenSaga(),
-        theoDoiUpdateComment()
+        theoDoiUpdateComment(),
+        theoDoiGetAllUserSaga(),
+        theoDoiDeleteUserSaga(),
+        theoDoiEditUserSaga()
     ])
 }

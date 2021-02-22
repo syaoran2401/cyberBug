@@ -17,7 +17,7 @@ export default function DemoDragDrop() {
     const tagDragEnter = useRef({});
 
     // useSpring
-    const [propsSpring, set, stop] = useSpring(() => {
+    const [propsSpring, set] = useSpring(() => {
         return {
             from: {
                 bottom: -25

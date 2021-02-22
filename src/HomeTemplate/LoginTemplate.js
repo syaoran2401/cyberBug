@@ -1,9 +1,9 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Route } from 'react-router-dom'
-import { Button, Layout } from 'antd';
+import { Layout } from 'antd';
 
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Sider, Content } = Layout;
 
 export default function LoginTemplate(props) {
 

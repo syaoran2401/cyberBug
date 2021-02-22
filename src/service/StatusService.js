@@ -1,13 +1,9 @@
 import { BaseService } from "./BaseService";
 
 
-export class StatusService extends BaseService{
-    constructor(){
-        super()
-    }
-
-    getAllStatus = () =>{
-        return this.get('Status/getAll' )
+export class StatusService extends BaseService {
+    getAllStatus = () => {
+        return this.get('Status/getAll')
     }
 }
 

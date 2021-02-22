@@ -6,7 +6,7 @@ import { statusService } from "../../service/StatusService";
 function * getAllStatusSaga(action){
 
     try{
-        const {data, status} = yield call(()=> statusService.getAllStatus());
+        const {data} = yield call(()=> statusService.getAllStatus());
 
         yield put({
             type: GET_ALL_STATUS,

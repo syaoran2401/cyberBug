@@ -12,25 +12,17 @@ import { GET_ALL_STATUS_SAGA } from '../../redux/types/StatusType';
 import { GET_ALL_USER_BY_PROJECT_ID_SAGA } from '../../redux/types/UserType';
 
 const children = [];
-const { Option } = Select;
-// for (let i = 10; i < 36; i++) {
-//     children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
-// }
 
 function FormCreateTask(props) {
 
     const {
-        values,
-        errors,
-        touched,
         handleChange,
-        handleBlur,
         handleSubmit,
         setFieldValue
     } = props;
 
     //hook
-    const [size, setSize] = useState('default');
+    const [size] = useState('default');
     const [timeTracking, setTimeTracking] = useState({
         timeTrackingSpent: 0,
         timeTrackingRemaining: 0
@@ -43,7 +35,7 @@ function FormCreateTask(props) {
     const userOption = arrUserInProject.map((item, index) => {
         return { value: item.userId, label: item.name }
     })
-    console.log("arrProject", arrProject);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -167,7 +159,7 @@ function FormCreateTask(props) {
                                 setFieldValue('listUserAsign', values)
                             }}
                             onSearch={(value) => {
-                                console.log('value', value);
+                               
 
                             }}
                             style={{ width: '100%' }}
@@ -251,7 +243,6 @@ const createTaskForm = withFormik({
     // enableReinitialize => mỗi lần redux thay đổi thì sẽ chạy lại hàm projectSettingForm
     enableReinitialize: true,
     mapPropsToValues: (props) => {
-        console.log(props);
         const { arrProject, arrTaskType, arrPriority, arrStatus } = props
         // if(arrProject.length> 0){
         //     props.dispatch({
@@ -277,7 +268,7 @@ const createTaskForm = withFormik({
     }),
 
     handleSubmit: (values, { props, setSubmitting }) => {
-        console.log('taskDetail',values);
+      
         props.dispatch({
             type: CREATE_TASK_SAGA,
             taskObject: values

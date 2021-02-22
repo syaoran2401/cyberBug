@@ -1,4 +1,4 @@
-import { Route, Switch, useHistory } from "react-router-dom";
+import {  Switch, useHistory } from "react-router-dom";
 import CyberbugsTemplate from "./HomeTemplate/CyberBugTemplate";
 import ProjectSetting from "./page/CyberBugs/ProjectSettings/ProjectSetting";
 import LoginTemplate from "./HomeTemplate/LoginTemplate";
@@ -14,6 +14,7 @@ import UserSignUp from "./page/SignUp/UserSignUp";
 import IndexCyberBugs from "./ProjectDetail/IndexCyberBugs";
 import DemoDragDrop from "./page/DemoDragDrop/DemoDragDrop";
 import DragAnhDropDnd from "./page/DragAndDropDnd/DragAnhDropDnd";
+import UserManagement from "./page/UserManagement/UserManagement";
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
         <CyberbugsTemplate exact path='/projectsettings' Component={ProjectSetting} />
         <CyberbugsTemplate exact path='/projectmanagement' Component={ProjectManagement}/>
         <CyberbugsTemplate exact path='/projectDetail/:projectId' Component={IndexCyberBugs}/>
+        <CyberbugsTemplate exact path='/usermanagement' Component={UserManagement}/>
 
 
         <CyberbugsTemplate exact path='/' Component={IndexCyberBugs} />

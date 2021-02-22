@@ -1,6 +1,6 @@
 import { Editor } from '@tinymce/tinymce-react'
 import { withFormik } from 'formik';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, } from 'react'
 import { connect, useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { GET_ALL_PROJECT_CATEGORY, UPDATED_PROJECT_SAGA } from '../../redux/types/CyberBugsType';
@@ -8,10 +8,7 @@ import { GET_ALL_PROJECT_CATEGORY, UPDATED_PROJECT_SAGA } from '../../redux/type
 function FormsEditProject(props) {
     const {
         values,
-        errors,
-        touched,
         handleChange,
-        handleBlur,
         handleSubmit,
         setFieldValue
     } = props;
@@ -20,10 +17,6 @@ function FormsEditProject(props) {
         );
     const dispatch = useDispatch()
 
-    // const submitForm = (e) => {
-    //     e.preventDefault();
-    //     alert('sbumit')
-    // }
 
     const renderArrayCategory = () => {
         return arrProjectCategory.map((item, index) => {
@@ -112,7 +105,6 @@ const editProjectForm = withFormik({
     // enableReinitialize => mỗi lần redux thay đổi thì sẽ chạy lại hàm projectSettingForm
     enableReinitialize: true,
     mapPropsToValues: (props) => {
-        console.log(props)
         return {
             id: props.projectEditInfo?.id,
             projectName: props.projectEditInfo.projectName,
@@ -125,7 +117,6 @@ const editProjectForm = withFormik({
     }),
 
     handleSubmit: (values, { props, setSubmitting }) => {
-        console.log(values)
         // Khi người dùng submit  => đưa data về backend thông wa API
         const action = {
             type:UPDATED_PROJECT_SAGA,

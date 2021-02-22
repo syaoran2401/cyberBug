@@ -5,7 +5,7 @@ import { STATUS_CODE } from "../../util/Constants/settingDOMAIN";
 
 export function * getAllPrioritySaga(action){
     try{
-        const {data, status} =  yield call(() => priorityService.getAllPriority())
+        const {data} =  yield call(() => priorityService.getAllPriority())
         if(STATUS_CODE.SUCCESS){
             yield put({
                 type:GET_ALL_PRIORITY_TYPE,

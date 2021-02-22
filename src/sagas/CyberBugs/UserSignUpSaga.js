@@ -1,20 +1,22 @@
 import { call, put, select, takeLatest } from "redux-saga/effects";
 import { STATUS_CODE, USER_SIGN_UP_API } from "../../util/Constants/settingDOMAIN";
 import { DISPLAY_LOADING, HIDE_LOADING } from "../../redux/types/LoadingStyle";
-import { userSignUpJiraAPI } from "../../service/CyberBugsService";
+import { userService } from "../../service/UserService";
 
 
 
 function * userSignUpAPI (action) {  
+    const {model} = action
  
     yield put({
         type:DISPLAY_LOADING
     })
     
     try{
-        const {data, status} = yield call(()=>userSignUpJiraAPI(action.userSignUpInfo));
+        const {data} = yield call(()=>userService.userSignUp(model));
 
         if(STATUS_CODE.SUCCESS){
+            console.log(data)
             const history = yield select(state => state.HistoryReducer.history);
             history.push('/home')
         }

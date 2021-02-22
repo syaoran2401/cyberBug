@@ -24,8 +24,8 @@ export default function MenuCyberBug() {
                 </button>
 
             <div className='d-flex justify-content-center align-items-center mt-3 '>
-                <div>
-                    <img src={userInfo.avatar} alt="avatar" style={{width:'30px', height:'30px'}} />
+                <div className='mr-2'>
+                    <img src={userInfo.avatar} alt="avatar" style={{width:'30px', height:'30px', border:'1px solid black', borderRadius:'50%'}} />
                 </div>
                 <div>{userInfo.name}</div>
             </div>
@@ -51,6 +51,10 @@ export default function MenuCyberBug() {
                 <div>
                     <i className="fa fa-cog" />
                     <NavLink to='/projectmanagement' className='text-decoration-none ' activeClassName='active font-weight-bold text-pirmary'>Project Management</NavLink>
+                </div>
+                <div>
+                <i className="fa fa-cog" />
+                <NavLink to='/usermanagement'className='text-decoration-none ' activeClassName='active font-weight-bold text-pirmary'>Users Management</NavLink>
                 </div>
             </div>
             <div className="feature">

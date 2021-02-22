@@ -6,13 +6,11 @@ import { STATUS_CODE } from "../../util/Constants/settingDOMAIN";
 
 function* getAllCommentSaga(action) {
     const { taskId } = action
-    console.log('taskId', taskId)
 
     try {
-        const { data, status } = yield call(() => commentService.getAllComment(taskId))
+        const { data } = yield call(() => commentService.getAllComment(taskId))
 
         if (STATUS_CODE.SUCCESS) {
-            console.log(data)
             yield put({
                 type: GET_ALL_COMMENT,
                 userComment: data.content
@@ -35,9 +33,9 @@ function* deleteCommentSaga(action) {
     })
 
     try {
-        const { data, status } = yield call(() => commentService.deleteComment(idComment))
+        yield call(() => commentService.deleteComment(idComment))
         if (STATUS_CODE.SUCCESS) {
-            console.log(data);
+
             yield put({
                 type: GET_ALL_COMMENT_SAGA,
                 taskId
@@ -62,9 +60,8 @@ function* insertCommentSaga(action) {
     const { taskId, model } = action;
 
     try {
-        const { data, status } = yield call(() => commentService.insertComment(model))
+        yield call(() => commentService.insertComment(model))
         if (STATUS_CODE.SUCCESS) {
-            console.log(data);
             yield put({
                 type: GET_ALL_COMMENT_SAGA,
                 taskId
@@ -85,9 +82,8 @@ function* updateComment(action) {
     const { id, contentComment, taskId } = action;
 
     try {
-        const { data, status } = yield call(() => commentService.updateComment(id, contentComment))
+        yield call(() => commentService.updateComment(id, contentComment))
         if (STATUS_CODE.SUCCESS) {
-            console.log(data);
             yield put({
                 type: GET_ALL_COMMENT_SAGA,
                 taskId

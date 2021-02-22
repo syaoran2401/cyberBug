@@ -6,7 +6,7 @@ import { STATUS_CODE } from "../../util/Constants/settingDOMAIN";
 
 function * getAllTaskType(action){
     try{
-        const {data, status} =  yield call(() =>taskTypeService.getAllTaskType())
+        const {data} =  yield call(() =>taskTypeService.getAllTaskType())
 
         if(STATUS_CODE.SUCCESS){
             console.log(data)

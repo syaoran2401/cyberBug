@@ -7,7 +7,6 @@ import { STATUS_CODE } from "../../util/Constants/settingDOMAIN";
 
 
 function* updatedProjectSaga(action) {
-    console.log("action", action)
 
     yield put({
         type: DISPLAY_LOADING
@@ -19,7 +18,7 @@ function* updatedProjectSaga(action) {
         const { data, status } = yield call(() => updateProject(action.projectUpdate));
 
         if (status === STATUS_CODE.SUCCESS) {
-            // console.log(data)
+            console.log(data)
         }
 
         yield put({

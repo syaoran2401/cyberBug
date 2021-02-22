@@ -42,9 +42,10 @@ function* getTaskDetailSaga(action) {
 
     const { taskId } = action
     try {
-        const { data, status } = yield call(() => taskService.getTaskDetail(taskId));
+        const { data } = yield call(() => taskService.getTaskDetail(taskId));
 
         if (STATUS_CODE.SUCCESS) {
+            console.log(data)
             yield put({
                 type: GET_TASK_DETAIL,
                 taskDetailModal: data.content
@@ -65,7 +66,7 @@ export function* theoDoiGetTaskDetailSaga() {
 function* updateTaskStatusSaga(action) {
     const { taskUpdateStatus } = action
     try {
-        const { data, status } = yield call(() => taskService.updateStatusTask(taskUpdateStatus));
+        const { data } = yield call(() => taskService.updateStatusTask(taskUpdateStatus));
         if (STATUS_CODE.SUCCESS) {
             console.log(data)
             yield put({
@@ -133,32 +134,33 @@ function* handleChangePostAPI(action) {
     }
 
     //lấy task detail ở reducer sau khi thay đổi
-    let {taskDetailModal} = yield select(state => state.TaskReducer);
+    let { taskDetailModal } = yield select(state => state.TaskReducer);
 
-    const listUserAsign = taskDetailModal.assigness?.map((user, index)=>{
+    const listUserAsign = taskDetailModal.assigness?.map((user, index) => {
         return user.id
     })
 
-    const taskUpdateAPI = {...taskDetailModal,listUserAsign };
-    
-    try{
-        const {data, status} = yield call(() =>taskService.updateTask(taskUpdateAPI));
+    const taskUpdateAPI = { ...taskDetailModal, listUserAsign };
 
-        if(STATUS_CODE.SUCCESS){
-         yield put({
-             type: GET_PROJECT_DETAIL_SAGA,
-             projectId: taskUpdateAPI.projectId
-         })
-     
-         yield put({
-             type: GET_TASK_DETAIL_SAGA,
-             taskId: taskUpdateAPI.taskId
-         })
+    try {
+        const { data } = yield call(() => taskService.updateTask(taskUpdateAPI));
+
+        if (STATUS_CODE.SUCCESS) {
+            console.log(data)
+            yield put({
+                type: GET_PROJECT_DETAIL_SAGA,
+                projectId: taskUpdateAPI.projectId
+            })
+
+            yield put({
+                type: GET_TASK_DETAIL_SAGA,
+                taskId: taskUpdateAPI.taskId
+            })
         }
-    }catch(err){
+    } catch (err) {
         console.log(err.response.data)
     }
-  
+
 }
 
 export function* theoDoiHandleChangeAPI() {

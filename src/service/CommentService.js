@@ -2,9 +2,7 @@ import { BaseService } from "./BaseService";
 
 
 export class CommentService extends BaseService{
-    constructor(){
-        super()
-    }
+
 
     getAllComment = (taskId) =>{
         return this.get(`Comment/getAll?taskId=${taskId}`)

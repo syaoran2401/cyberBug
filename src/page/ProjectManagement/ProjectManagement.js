@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Table, Input, Button, Space, Tag, Popconfirm, message, Image, Popover, AutoComplete, } from 'antd';
-import ReactHtmlParse from 'react-html-parser'
-import { CloseOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { Table,  Button, Space, Tag, Popconfirm, Popover, AutoComplete, } from 'antd';
+import {  DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { DELETE_PROJECT_SAGA, EDIT_PROJECT, GET_ALL_PROJECT_SAGA, GET_USER_SAGA, OPEN_DRAWER, OPEN_FORM, ADD_USER_PROJECT_SAGA, REMOVE_USER_PROJECT_SAGA, GET_PROJECT_DETAIL_SAGA } from '../../redux/types/CyberBugsType';
+import { DELETE_PROJECT_SAGA, EDIT_PROJECT, GET_ALL_PROJECT_SAGA, GET_USER_SAGA,  OPEN_FORM, ADD_USER_PROJECT_SAGA, REMOVE_USER_PROJECT_SAGA } from '../../redux/types/CyberBugsType';
 import FormsEditProject from '../../components/Forms/FormsEditProject';
 import Avatar from 'antd/lib/avatar/avatar';
 import { NavLink } from 'react-router-dom';
@@ -13,7 +12,6 @@ import { NavLink } from 'react-router-dom';
 export default function ProjectManagement(props) {
 
     const projectList = useSelector(state => state.JiraProjectReducer.projectList);
-    console.log('projectList', projectList);
     const { userSearch } = useSelector(state => state.UserReducer);
 
     // Hàm useState để set giá trị ban đầu của value trong AutoComplete
@@ -29,13 +27,12 @@ export default function ProjectManagement(props) {
     }, [])
 
 
-    const [state, setState] = useState({
+    const [state,setState] = useState({
         filteredInfo: null,
         sortedInfo: null,
     })
 
     const handleChange = (pagination, filters, sorter) => {
-        console.log('Various parameters', pagination, filters, sorter);
         setState({
             filteredInfo: filters,
             sortedInfo: sorter,
@@ -62,11 +59,6 @@ export default function ProjectManagement(props) {
         });
     };
 
-
-    let { sortedInfo, filteredInfo } = state;
-
-    sortedInfo = sortedInfo || {};
-    filteredInfo = filteredInfo || {};
 
     const columns = [
         {
@@ -205,8 +197,6 @@ export default function ProjectManagement(props) {
                             }}
                             // thuộc tinh Select => sau khi chọn thì sẽ lấy đc value (id), option (label và value)
                             onSelect={(valueSelect, option) => {
-                                // console.log('userId', valueSelect);
-                                console.log('option', option)
                                 setValue(option.label);
 
                                 dispatch({

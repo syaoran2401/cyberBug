@@ -1,71 +1,92 @@
 import React from 'react'
 import { Button, Input } from 'antd';
-import { UserOutlined, LockOutlined, TwitterOutlined } from '@ant-design/icons';
-import { withFormik  } from 'formik';
+import { UserOutlined, LockOutlined, PhoneOutlined, IdcardOutlined } from '@ant-design/icons';
+import { withFormik } from 'formik';
 import * as Yup from 'yup';
-
-import {connect} from 'react-redux'
-import { USER_LOGIN_API } from '../../util/Constants/settingDOMAIN';
-import { jiraUserLoginAction, jiraUserSignUpAction } from '../../redux/actions/JiraAction';
+import { connect, useSelector } from 'react-redux'
+import { USER_SIGN_UP_API } from '../../util/Constants/settingDOMAIN';
 
 
 
-function SignUp(props) {
+
+
+function UserSignUp(props) {
+    const {history} = useSelector(state => state.HistoryReducer);
 
     const {
         values,
         errors,
         handleChange,
-        handleBlur,
         handleSubmit,
       } = props;
 
+   
+
     return (
-        <form className="container" onSubmit={handleSubmit}>
-            <div className='d-flex flex-column justify-content-center align-items-center' style={{ height: window.innerHeight }}>
-                <h2 className='text-center'>Sign Up</h2>
+        <form className='container' onSubmit={handleSubmit}>
+            <div className='d-flex flex-column align-items-center justify-content-center' style={{ height: window.innerHeight }}>
+                <h1>Sign Up</h1>
+                <div style={{ width: '400px' }}>
+                    <div>
+                        <Input onChange={handleChange} name='email' value={values.email} className='mt-3' size="large" placeholder="Email" prefix={<UserOutlined />} />
+                        <span className='text-danger text-center'>{errors.email}</span>
+                    </div>
+                    <div>
+                        <Input onChange={handleChange} name='passWord' value={values.passWord} className='mt-3' size="large" placeholder="Password" prefix={<LockOutlined />} />
+                        <span className='text-danger  text-center'>{errors.passWord}</span>
+                    </div>
+                    <div>
+                        <Input onChange={handleChange} name='phoneNumber' value={values.phoneNumber} className='mt-3' size="large" placeholder="Phone Number" prefix={<PhoneOutlined />} />
+                    </div>
+                    <div>
+                        <Input onChange={handleChange} name='name' value={values.name} className='mt-3' size="large" placeholder="Name" prefix={<IdcardOutlined />} />
+                        <span className='text-danger  text-center'>{errors.name}</span>
+                    </div>
+                </div>
                 <div className='mt-4'>
-                    <Input onChange={handleChange} style={{ minWidth: 300 }} placeholder='email' name='email' size="large" prefix={<UserOutlined />} />
-                   <div className='text-danger text-center'>{errors.email}</div> 
-                </div>
-
-                <div className='mt-3' >
-                    <Input onChange={handleChange} style={{ minWidth: 300 }} placeholder='password' type='password' name='password' size="large" prefix={<LockOutlined />} />
-                  <div className='text-danger text-center'>{errors.password}</div>
-                </div>
-
-                <Button htmlType='submit' className='mt-4' style={{ backgroundColor: 'rgb(102,117,223)', color: 'white' }}>Sign Up</Button>
-
-                <div className='social mt-3 d-flex'>
-                    <Button style={{ backgroundColor: 'rgb(59,89,152)' }} shape='circle' size={'large'} >
-                        <span className='font-weight-bold text-white'>f</span>
-                    </Button>
-                    <Button className='ml-3' type='primary' shape='circle' size={'large'}>
-                        <TwitterOutlined />
-                    </Button>
+                    <Button htmlType='submit' className='mr-3' type="primary submit">Register</Button>
+                    <Button className='ml-3' type="danger" onClick={()=>{
+                        history.push('/home')
+                    }}>Back to home</Button>
                 </div>
             </div>
         </form>
     )
 }
 
-
-const UserSignUpWithFormik = withFormik({
-    mapPropsToValues: () => ({
+const signUpWithForMik = withFormik({
+    mapPropsToValues: () => ({ 
         email:'',
-        password:'',
-    }),
-    
-    validationSchema:Yup.object().shape({
-        email: Yup.string().required('Email is required!').email('email is invalid !'),
-        password: Yup.string().min(6, 'password must have at least 6 characters').max(32, "password can't longer than 32 characters")
-    }),
-    
- 
-    handleSubmit: (values, {props, setSubmitting }) => {
-        props.dispatch(jiraUserSignUpAction(values.email, values.password))
-    },
-    displayName: 'User Login',
-  })(SignUp);
+        passWord:'',
+        phoneNumber: '',
+        name: '' ,
 
-  export default connect()(UserSignUpWithFormik)
+    }),
+  
+    validationSchema:Yup.object({
+        email: Yup.string().email('Invalid email address !').required('Required !'),
+        name: Yup.string().min (5,'Must be 5 characters or more' ).max(30, 'Must be 30 characters or less').required('Required !'),
+        passWord: Yup.string().required('Required !'),
+    }),
+  
+    handleSubmit: (values, {props, setSubmitting }) => {
+        const {email, passWord, phoneNumber, name} = values
+        props.dispatch({
+            type:USER_SIGN_UP_API,
+            model:{
+               email,
+               passWord,
+               phoneNumber,
+               name 
+            }
+       })
+    },
+  
+    displayName: 'BasicForm',
+  })(UserSignUp);
+
+
+export default connect() (signUpWithForMik)
+
+
+

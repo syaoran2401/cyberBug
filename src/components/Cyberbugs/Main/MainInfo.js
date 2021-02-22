@@ -8,8 +8,6 @@ import ReactHtmlParse from 'react-html-parser'
 export default function MainInfo(props) {
 
     const { projectDetail } = props;
-
-    console.log(projectDetail)
     const renderAvatar = () => {
 
         return projectDetail.members?.map((item, index) => {

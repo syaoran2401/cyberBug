@@ -2,7 +2,7 @@ import { call, put, select, takeLatest } from 'redux-saga/effects'
 import { CREAT_PROJECT_SAGA, GET_ALL_PROJECT, GET_ALL_PROJECT_SAGA, GET_PROJECT_DETAIL, GET_PROJECT_DETAIL_SAGA, GET_PROJECT_LIST } from '../../redux/types/CyberBugsType';
 import { DISPLAY_LOADING, HIDE_LOADING } from '../../redux/types/LoadingStyle';
 import { GET_ALL_USER_BY_PROJECT_ID_SAGA } from '../../redux/types/UserType';
-import { creatProject, creatProjectAuthorize, getAllProject } from '../../service/CyberBugsService';
+import { creatProjectAuthorize, getAllProject } from '../../service/CyberBugsService';
 import { projectService } from '../../service/ProjectService';
 import { STATUS_CODE } from '../../util/Constants/settingDOMAIN';
 
@@ -67,7 +67,7 @@ function* getProjectDetailSaga(action) {
     })
 
     try {
-        const { data, status } = yield call(() => projectService.getProjectDetail(action.projectId));
+        const { data } = yield call(() => projectService.getProjectDetail(action.projectId));
 
         yield put({
             type:GET_PROJECT_DETAIL,

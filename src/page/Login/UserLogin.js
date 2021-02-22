@@ -3,9 +3,7 @@ import { Button, Input } from 'antd';
 import { UserOutlined, LockOutlined, TwitterOutlined } from '@ant-design/icons';
 import { withFormik  } from 'formik';
 import * as Yup from 'yup';
-
 import {connect} from 'react-redux'
-import { USER_LOGIN_API } from '../../util/Constants/settingDOMAIN';
 import { jiraUserLoginAction } from '../../redux/actions/JiraAction';
 
 
@@ -13,10 +11,8 @@ import { jiraUserLoginAction } from '../../redux/actions/JiraAction';
 function Login(props) {
 
     const {
-        values,
         errors,
         handleChange,
-        handleBlur,
         handleSubmit,
       } = props;
 

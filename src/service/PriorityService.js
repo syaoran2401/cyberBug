@@ -1,12 +1,10 @@
 import { BaseService } from "./BaseService";
 
 
-export class PriorityService extends BaseService{
-    constructor(){
-        super()
-    }
+export class PriorityService extends BaseService {
 
-    getAllPriority = () =>{
+
+    getAllPriority = () => {
         return this.get(`Priority/getAll`)
     }
 }
